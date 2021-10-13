@@ -31,27 +31,33 @@ function playRound(playerChoice, computerChoice) {
   //We will use playerChoice and compare it to computerChoices
   // and create a series of nested branches.
 
-  if (playerChoice == "Rock") {
+  if (playerChoice == "rock") {
     if (computerChoice == "Rock") {
       WinOrLose = "The game is a draw";
     } else if (computerChoice == "Paper") {
       WinOrLose = "Paper Beats Rock, You lose, sorry loser.";
+      cpuScore++;
     } else if (computerChoice == "Scissors") {
       WinOrLose = "Rock Beats Scissors, You WIN!!!";
+      playerScore++;
     }
-  } else if (playerChoice == "Paper") {
+  } else if (playerChoice == "paper") {
     if (computerChoice == "Rock") {
       WinOrLose = "Paper Beats Rock, You WIN!!";
+      playerScore++;
     } else if (computerChoice == "Paper") {
       WinOrLose = "The Game is a Draw";
     } else if (computerChoice == "Scissors") {
       WinOrLose = "Scissors cut Paper, You lose, sorry loser.";
+      cpuScore++;
     }
-  } else if (playerChoice == "Scissors") {
+  } else if (playerChoice == "scissors") {
     if (computerChoice == "Rock") {
       WinOrLose = "Rock Beats Paper, You lose, sorry loser";
+      cpuScore++;
     } else if (computerChoice == "Paper") {
       WinOrLose = "Scissors beats Paper, You WIN!!";
+      playerScore++;
     } else if (computerChoice == "Scissors") {
       WinOrLose = "This game is a draw";
     }
@@ -63,17 +69,50 @@ function playRound(playerChoice, computerChoice) {
   return WinOrLose;
 }
 
-//This call is to make sure if numbers are randomizing correctly.
-//test point: console.log(computerPlay());
+function game() {
+  //This call is to make sure if numbers are randomizing correctly.
+  //test point: console.log(computerPlay());
 
-//this is where we start
-let playerChoice = "Rock"; //bug i had here. I had spelled "rock", which was not equal to what i had wrote in the function.
-let computerChoice = computerPlay();
+  //this is where we start
+  //let playerChoice = "Rock"; //bug i had here. I had spelled "rock", which was not equal to what i had wrote in the function.
 
-let gameOutCome = playRound(playerChoice, computerChoice);
+  let userInput = prompt("Rock, Paper, Scissors?");
+  let playerChoice = userInput.toLowerCase();
+  let computerChoice = computerPlay();
 
-//test point: console.log(gameOutCome);
+  let gameOutCome = playRound(playerChoice, computerChoice);
 
-console.log(
-  `The player choice was ${playerChoice} and CPU was ${computerChoice}. ${gameOutCome}`
-);
+  //test point: console.log(gameOutCome);
+
+  console.log(
+    `The player choice was ${playerChoice} and CPU was ${computerChoice}. ${gameOutCome}`
+  );
+  console.log(
+    "The current score is, Player score: " +
+      playerScore +
+      " CPU Score: " +
+      cpuScore +
+      " "
+  );
+  //to do case-insentive we do something like str1.toLowerCase() === str2.toLowerCase();
+}
+
+//global Variables needed to get track of score
+let playerScore = 0;
+let cpuScore = 0;
+
+game();
+game();
+game();
+game();
+game();
+
+console.log(`The end game score is Player: ${playerScore} CPU: ${cpuScore}`);
+
+if (playerScore > cpuScore) {
+  console.log("YOU WIN!!!");
+} else if (playerScore === cpuScore) {
+  console.log("THE GAME IS A TIE!!!");
+} else {
+  console.log("Better luck next time, loser.");
+}
